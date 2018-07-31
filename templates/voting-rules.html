@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load steem_helpers %}
+{% block page_content %}
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">
+                Voting Rules
+            </h1>
+        </div>
+
+        <div class="col-12">
+            {% if voting_rules %}
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Voting Rules</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table card-table table-vcenter text-nowrap">
+                            <thead>
+                            <tr>
+                                <th>Target Account</th>
+                                <th>Voter Account</th>
+                                <th>Weight</th>
+                                <th>Delay</th>
+                                <th>Daily Votes</th>
+                                <th>Active</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {% for voting_rule in voting_rules %}
+                                <tr>
+                                    <td>
+                                        <a href="{% steem_link voting_rule.target_account %}"
+                                           target="_blank">@{{ voting_rule.target_account }}</a>
+                                    </td>
+                                    <td>
+                                        <a href="{% steem_link voting_rule.voter_account %}"
+                                           target="_blank">@{{ voting_rule.voter_account }}</a>
+                                    </td>
+                                    <td>{{ voting_rule.weight }}</td>
+                                    <td>{{ voting_rule.delay }}</td>
+                                    <td>{{ voting_rule.daily_maximum }}</td>
+                                    <td>
+                                        {% if not voting_rule.is_active %}
+                                            <strong>{{ voting_rule.is_active }}</strong>{% else %}
+                                            {{ voting_rule.is_active }}{% endif %}
+                                    </td>
+                                    <td class="text-right">
+                                        <a href="{% url "edit-voting-rule" voting_rule.id %}"
+                                           class="btn btn-secondary btn-sm">Edit</a>
+                                        {% if voting_rule.is_active %}
+                                            <a href="{% url "disable-voting-rule" voting_rule.id %}"
+                                               class="btn btn-secondary btn-sm">Disable</a>
+                                        {% else %}
+                                            <a href="{% url "enable-voting-rule" voting_rule.id %}"
+                                               class="btn btn-secondary btn-sm">Enable</a>
+                                        {% endif %}
+                                        <a href="{% url "delete-voting-rule" voting_rule.id %}"
+                                           class="btn btn-secondary btn-sm">Delete</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'add-voting-rule' %}"
+                                       class="btn btn-primary" role="button">Add
+                                        new rule</a>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% else %}
+                No voting rules added yet.
+                <a href="{% url 'add-voting-rule' %}">Add a voting rule and
+                    start the
+                    fun!</a>
+            {% endif %}
+        </div>
+
+
+    </div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block page_content %}
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">
+                {{ action|capfirst }} Voting Rule
+            </h1>
+        </div>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Voting Rule</h3>
+                </div>
+                <div class="card-body">
+                    {% if form.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {% for field in form %}
+                                {% if field.errors %}
+                                    <i class="fe fe-alert-triangle mr-2"
+                                       aria-hidden="true"></i>
+                                    {{ field.label }}:
+                                    {{ field.errors|striptags }}
+                                {% endif %}
+                            {% endfor %}
+                            {% if form.non_field_errors %}
+                                <i class="fe fe-alert-triangle mr-2"
+                                   aria-hidden="true"></i>
+                                {{ form.non_field_errors|striptags }}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    <form method="POST">
+                        {% csrf_token %}
+                        {% for field in form.visible_fields %}
+                            <div class="form-group">
+                                <label class="form-label">{{ field.label_tag }}</label>
+                                {% if field.id_for_label != "id_upvote_comments" %}
+                                    {% render_field field class="form-control" %}
+                                {% else %}
+                                    {{ field }}
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                        <div class="form-footer">
+                            <button type="submit"
+                                    class="btn btn-primary btn-block">
+                                {{ action|capfirst }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    </div>
+{% endblock %}

@@ -1,0 +1,6 @@
+<label class="custom-switch">
+    <input type="checkbox" name="{{ widget.name }}" {% if widget.value != None %} value="{{ widget.value }}"{% endif %}
+    class="custom-switch-input">
+    {% include "django/forms/widgets/attrs.html" %} />
+    <span class="custom-switch-indicator"></span>
+</label>

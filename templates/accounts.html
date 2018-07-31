@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load steem_helpers %}
+{% block page_content %}
+    <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">
+                Accounts
+            </h1>
+        </div>
+        <div class="col-12">
+            {% if steem_accounts %}
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Registered accounts</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table card-table table-vcenter text-nowrap">
+                            <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>VP limit</th>
+                                <th>Active</th>
+                                <th>Created At</th>
+                                <th>Last Update</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for steem_account in steem_accounts %}
+                                <tr>
+                                    <td>
+                                        <a href="{% steem_link steem_account.steem_username %}"
+                                           target="_blank">@{{ steem_account.steem_username }}</a>
+                                    </td>
+                                    <td>{{ steem_account.vp_limit }}</td>
+                                    <td>
+                                        {% if not steem_account.is_active %}
+                                            <strong>{{ steem_account.is_active }}</strong>{% else %}
+                                            {{ steem_account.is_active }}{% endif %}
+                                    </td>
+                                    <td>
+                                        {{ steem_account.created_at }}
+                                    </td>
+                                    <td>
+                                        {{ steem_account.updated_at }}
+                                    </td>
+                                    <td class="text-right">
+                                        <a href="{% url "edit-account" steem_account.id %}"
+                                           class="btn btn-secondary btn-sm">Edit</a>
+                                        {% if steem_account.is_active %}
+                                            <a href="{% url "disable-account" steem_account.id %}"
+                                               class="btn btn-secondary btn-sm">Disable</a>
+                                        {% else %}
+                                            <a href="{% url "enable-account" steem_account.id %}"
+                                               class="btn btn-secondary btn-sm">Enable</a>
+                                        {% endif %}
+                                        <a href="{% url "delete-account" steem_account.id %}"
+                                           class="btn btn-secondary btn-sm">Delete</a>
+
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            <td>
+                                <a href="{% url 'add-account' %}"
+                                   class="btn btn-primary" role="button">Add
+                                    new account</a>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% else %}
+                No accounts added yet.
+                <a href="{% url 'add-account' %}">Add an account and start the
+                    fun!</a>
+            {% endif %}
+        </div>
+
+
+    </div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<div class="container">
+            <div class="page-header">
+              <h1 class="page-title">
+                Dashboard
+              </h1>
+            </div>
+<div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Latest Upvotes</h3>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table card-table table-vcenter text-nowrap">
+                      <thead>
+                        <tr>
+                          <th>Voter</th>
+                          <th>Author</th>
+                          <th>Permlink</th>
+                          <th>Weight</th>
+                          <th>Time</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><a href="#">@emrebeyler</a></td>
+                          <td><a href="#" class="text-inherit">@crokkon</a></td>
+                          <td>
+                            <a href="#">@crokkon/asdasds</a>
+                          </td>
+                          <td>
+                            +20
+                          </td>
+                          <td>
+                            4 Feb 2018
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+{% endblock %}

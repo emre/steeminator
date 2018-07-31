@@ -1,0 +1,100 @@
+{% extends "django_tabler/base.html" %}
+
+{% block content %}
+    <body class="">
+    <div class="page">
+        <div class="page-main">
+            <div class="header py-4">
+                <div class="container">
+                    <div class="d-flex">
+                        <a class="header-brand" href="/">
+                            steeminator
+                        </a>
+                        <div class="d-flex order-lg-2 ml-auto">
+                            <div class="dropdown">
+                                <a href="#" class="nav-link pr-0 leading-none"
+                                   data-toggle="dropdown">
+                                    <span class="avatar avatar-indigo">{{ request.user.username|slice:"0:2"|upper }}</span>
+                                    <span class="ml-2 d-none d-lg-block">
+                      <span class="text-default">{{ request.user.username }}</span>
+                    </span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                    <a class="dropdown-item"
+                                       href="{% url 'accounts' %}">
+                                        <i class="dropdown-icon fe fe-mail"></i>
+                                        Accounts
+                                    </a>
+
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item"
+                                       href="{% url 'logout' %}">
+                                        <i class="dropdown-icon fe fe-log-out"></i>
+                                        Log out
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#"
+                           class="header-toggler d-lg-none ml-3 ml-lg-0"
+                           data-toggle="collapse"
+                           data-target="#headerMenuCollapse">
+                            <span class="header-toggler-icon"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="header collapse d-lg-flex p-0" id="headerMenuCollapse">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg order-lg-first">
+                            <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
+                                <li class="nav-item">
+                                    <a href="{% url "home" %}" class="nav-link"><i
+                                            class="fe fe-home"></i> Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url "accounts" %}" class="nav-link"><i
+                                            class="fe fe-user"></i>Accounts
+                                        </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url "voting-rules" %}" class="nav-link"><i
+                                            class="fe fe-box"></i>Voting
+                                        Rules</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+            {% block page_content %}
+            {% endblock %}
+        </div>
+        <footer class="footer">
+            <div class="container">
+                <div class="row align-items-center flex-row-reverse">
+                    <div class="col-auto ml-lg-auto">
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <a href="https://github.com/emre/steeminator"
+                                   class="btn btn-outline-primary btn-sm">Source
+                                    code</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+{% endblock content %}
+
+{% block extra_js %}
+    <script>
+        {# add your custom javascript here #}
+    </script>
+{% endblock extra_js %}
